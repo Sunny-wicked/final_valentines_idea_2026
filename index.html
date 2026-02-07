@@ -256,8 +256,22 @@
         @keyframes glowing { 50% { box-shadow: 0px 0px 60px #f594b8; } }
         @keyframes sparkle { 50% { opacity: 1; } 100% { bottom: 250px; } }
         
-        
-        /* Mobile adjustment for modal */
+        /* Propose Day Interaction */
+        .ring-box {
+            font-size: 5rem;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .ring-box:hover { transform: scale(1.1); }
+
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.2); }
+            30% { transform: scale(1); }
+        }
+        .heart-beat { animation: heartBeat 1.5s infinite; }
+
         @media (max-width: 600px) {
             .modal-content { padding: 20px; width: 85%; }
             .rose-wrapper { height: 300px; }
@@ -286,67 +300,50 @@
             </div>
         </div>
 
-        <div class="day-card locked" id="day2">
+        <div class="day-card" id="day2" onclick="openProposeDay()">
             <span class="date-label">February 8, 2026</span>
             <h2 class="day-title">💍 Propose Day</h2>
             <div class="content">
-                <span class="lock-icon">🔒</span>
-                <p>Coming Soon...</p>
+                <div class="preview-emoji heart-beat">💍</div>
+                <p>A promise for our future...</p>
+                <p style="text-decoration: underline; font-size: 0.8rem;">Click to open</p>
             </div>
         </div>
 
         <div class="day-card locked" id="day3">
             <span class="date-label">February 9, 2026</span>
             <h2 class="day-title">🍫 Chocolate Day</h2>
-            <div class="content">
-                <span class="lock-icon">🔒</span>
-                <p>Coming Soon...</p>
-            </div>
+            <div class="content"><span class="lock-icon">🔒</span><p>Coming Soon...</p></div>
         </div>
 
         <div class="day-card locked" id="day4">
             <span class="date-label">February 10, 2026</span>
             <h2 class="day-title">🧸 Teddy Day</h2>
-            <div class="content">
-                <span class="lock-icon">🔒</span>
-                <p>Coming Soon...</p>
-            </div>
+            <div class="content"><span class="lock-icon">🔒</span><p>Coming Soon...</p></div>
         </div>
 
         <div class="day-card locked" id="day5">
             <span class="date-label">February 11, 2026</span>
             <h2 class="day-title">🤝 Promise Day</h2>
-            <div class="content">
-                <span class="lock-icon">🔒</span>
-                <p>Coming Soon...</p>
-            </div>
+            <div class="content"><span class="lock-icon">🔒</span><p>Coming Soon...</p></div>
         </div>
 
         <div class="day-card locked" id="day6">
             <span class="date-label">February 12, 2026</span>
             <h2 class="day-title">🫂 Hug Day</h2>
-            <div class="content">
-                <span class="lock-icon">🔒</span>
-                <p>Coming Soon...</p>
-            </div>
+            <div class="content"><span class="lock-icon">🔒</span><p>Coming Soon...</p></div>
         </div>
 
         <div class="day-card locked" id="day7">
             <span class="date-label">February 13, 2026</span>
             <h2 class="day-title">💋 Kiss Day</h2>
-            <div class="content">
-                <span class="lock-icon">🔒</span>
-                <p>Coming Soon...</p>
-            </div>
+            <div class="content"><span class="lock-icon">🔒</span><p>Coming Soon...</p></div>
         </div>
 
         <div class="day-card locked" id="day8" style="background: rgba(216, 27, 96, 0.3);">
             <span class="date-label">February 14, 2026</span>
             <h2 class="day-title">💝 Valentine's Day</h2>
-            <div class="content">
-                <span class="lock-icon">🔒</span>
-                <p>The Grand Finale</p>
-            </div>
+            <div class="content"><span class="lock-icon">🔒</span><p>The Grand Finale</p></div>
         </div>
     </div>
 
@@ -354,47 +351,23 @@
     <div id="roseModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeRoseDay()">&times;</span>
-            
             <h2 style="color: #d52d58;">Happy Rose Day!</h2>
-            
             <div class="rose-wrapper">
                 <div class="container">
                     <div class="glass"></div>
                     <div class="thorns">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
+                        <div></div><div></div><div></div><div></div>
                     </div>
                     <div class="glow"></div>
-                    <div class="rose-leaves">
-                        <div></div>
-                        <div></div>
-                    </div>
+                    <div class="rose-leaves"><div></div><div></div></div>
                     <div class="rose-petals">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
                     </div>
                     <div class="sparkles">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
+                        <div></div><div></div><div></div><div></div><div></div>
                     </div>
                 </div>
             </div>
-
             <p style="font-style: italic; color: #590d22; font-size: 1.1rem; margin-top: -10px;">
                 "If I had a rose for every time I thought of you these past 4 years, 
                 I'd be walking in a garden that never ends."
@@ -405,27 +378,46 @@
         </div>
     </div>
 
+    <div id="proposeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeProposeDay()">&times;</span>
+            <h2 style="color: #d52d58;">My Proposal to You</h2>
+            <div class="ring-box">💍</div>
+            <p style="font-size: 1.2rem; line-height: 1.6; color: #590d22; font-weight: 500;">
+                "I propose a future where we no longer have to say goodbye to a screen. 
+                Soon, let's trade these video calls for a lifetime of waking up right next to each other."
+            </p>
+            <div style="margin-top: 25px; padding: 15px; border-top: 1px solid #ffccd5;">
+                <p><strong>Will you stay by my side for Year 5 and beyond?</strong></p>
+                <button onclick="acceptProposal()" id="acceptBtn" style="background:#ff4d6d; color:white; border:none; padding:12px 30px; border-radius:30px; cursor:pointer; font-size: 1rem;">Yes, Forever ❤️</button>
+                <p id="acceptedMsg" style="display:none; color: #ff4d6d; font-weight: bold; margin-top: 10px;">Proposal Accepted! I love you! ❤️</p>
+            </div>
+        </div>
+    </div>
+
     <script>
-        function openRoseDay() {
-            document.getElementById("roseModal").style.display = "block";
+        function openRoseDay() { document.getElementById("roseModal").style.display = "block"; }
+        function closeRoseDay() { document.getElementById("roseModal").style.display = "none"; }
+
+        function openProposeDay() { 
+            const card = document.getElementById('day2');
+            if(!card.classList.contains('locked')) {
+                document.getElementById("proposeModal").style.display = "block"; 
+            }
+        }
+        function closeProposeDay() { document.getElementById("proposeModal").style.display = "none"; }
+
+        function acceptProposal() {
+            document.getElementById('acceptBtn').style.display = 'none';
+            document.getElementById('acceptedMsg').style.display = 'block';
         }
 
-        function closeRoseDay() {
-            document.getElementById("roseModal").style.display = "none";
-        }
-
-        // Close if they click outside the box
         window.onclick = function(event) {
-            let modal = document.getElementById("roseModal");
-            if (event.target == modal) {
-                modal.style.display = "none";
+            if (event.target.className === 'modal') {
+                event.target.style.display = "none";
             }
         }
     </script>
 
 </body>
-
 </html>
-
-
-
