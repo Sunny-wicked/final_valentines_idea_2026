@@ -256,6 +256,8 @@
         @keyframes glowing { 50% { box-shadow: 0px 0px 60px #f594b8; } }
         @keyframes sparkle { 50% { opacity: 1; } 100% { bottom: 250px; } }
         
+
+        /*day 2*/
         /* Propose Day Interaction */
         .ring-box {
             font-size: 5rem;
@@ -271,6 +273,51 @@
             30% { transform: scale(1); }
         }
         .heart-beat { animation: heartBeat 1.5s infinite; }
+        /*end of day 2*/
+
+
+        /*day 3 */
+       .choc-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;
+            padding: 25px; background: #3d1c16; border-radius: 15px;
+            border: 8px double #590d22; margin-bottom: 20px;
+        }
+
+        .choc-item { display: flex; justify-content: center; cursor: pointer; transition: transform 0.2s; }
+        .choc-item:hover { transform: scale(1.1); }
+
+        .choc-shape.heart {
+            width: 50px; height: 50px;
+            background: #7b3f00;
+            /* Using a clean SVG mask for the heart shape */
+            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center;
+            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center;
+            -webkit-mask-size: contain;
+            mask-size: contain;
+        }
+
+        .ruby { background-color: #ff4d6d !important; }
+        .milk { background-color: #895b45 !important; }
+        .dark { background-color: #2b110c !important; border: 1px solid #590d22; }
+        .white { background-color: #fff5e1 !important; }
+        .caramel { background-color: #d4a373 !important; }
+        .gold { background-color: #c9a227 !important; }
+
+        .eaten { opacity: 0.2; transform: scale(0.85); pointer-events: none; }
+
+        .tasting-notes {
+            text-align: left; background: #fff; padding: 15px;
+            border-radius: 10px; border-left: 5px solid #ff4d6d;
+            max-height: 200px; overflow-y: auto;
+        }
+        .tasting-notes h3 { margin-top: 0; font-size: 1rem; color: #590d22; }
+        .note-entry { 
+            margin-bottom: 10px; animation: fadeIn 0.5s ease-in; 
+            border-bottom: 1px solid #eee; padding-bottom: 5px; 
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+        /*end of day 3*/
 
         @media (max-width: 600px) {
             .modal-content { padding: 20px; width: 85%; }
@@ -310,10 +357,14 @@
             </div>
         </div>
 
-        <div class="day-card locked" id="day3">
+        <div class="day-card" id="day3" onclick="openChocolateDay()">
             <span class="date-label">February 9, 2026</span>
             <h2 class="day-title">🍫 Chocolate Day</h2>
-            <div class="content"><span class="lock-icon">🔒</span><p>Coming Soon...</p></div>
+            <div class="content">
+                <div class="preview-emoji">🍫</div>
+                <p>Taste the reasons why I love you.</p>
+                <p style="text-decoration: underline; font-size: 0.8rem;">Click to get your chocolates</p>
+            </div>
         </div>
 
         <div class="day-card locked" id="day4">
@@ -395,27 +446,58 @@
         </div>
     </div>
 
+    <div id="chocolateModal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <span class="close-modal" onclick="closeChocolateDay()">&times;</span>
+            <h2 style="color: #590d22;">The "Love You" Collection 🍫</h2>
+            <div class="choc-grid">
+                <div class="choc-item" onclick="eatChoc(this, 'Your Smile', 'The way it lights up even the darkest of my days.')"><div class="choc-shape heart ruby"></div></div>
+                <div class="choc-item" onclick="eatChoc(this, 'Your Eyes', 'I could get lost in them for a lifetime.')"><div class="choc-shape heart milk"></div></div>
+                <div class="choc-item" onclick="eatChoc(this, 'Your Voice', 'It is my favorite sound; it feels like home.')"><div class="choc-shape heart dark"></div></div>
+                <div class="choc-item" onclick="eatChoc(this, 'Your Lips', 'The thought of them makes my heart skip a beat.')"><div class="choc-shape heart white"></div></div>
+                <div class="choc-item" onclick="eatChoc(this, 'Your Yapping', 'I love every word. I could listen to you forever.')"><div class="choc-shape heart caramel"></div></div>
+                <div class="choc-item" onclick="eatChoc(this, 'Your Soul', 'You have the most beautiful soul I have ever known.')"><div class="choc-shape heart gold"></div></div>
+            </div>
+            <div class="tasting-notes">
+                <h3>Tasting Notes:</h3>
+                <div id="choc-log"><p style="opacity: 0.5;">Select a chocolate to taste...</p></div>
+            </div>
+            <button onclick="closeChocolateDay()" style="background:#ff4d6d; color:white; border:none; padding:10px 25px; border-radius:20px; cursor:pointer; margin-top:15px;">Close Box</button>
+        </div>
+    </div>
+    </div>
+
     <script>
         function openRoseDay() { document.getElementById("roseModal").style.display = "block"; }
         function closeRoseDay() { document.getElementById("roseModal").style.display = "none"; }
 
-        function openProposeDay() { 
-            const card = document.getElementById('day2');
-            if(!card.classList.contains('locked')) {
-                document.getElementById("proposeModal").style.display = "block"; 
-            }
-        }
+        function openProposeDay() { document.getElementById("proposeModal").style.display = "block"; }
         function closeProposeDay() { document.getElementById("proposeModal").style.display = "none"; }
-
         function acceptProposal() {
             document.getElementById('acceptBtn').style.display = 'none';
             document.getElementById('acceptedMsg').style.display = 'block';
         }
 
-        window.onclick = function(event) {
-            if (event.target.className === 'modal') {
-                event.target.style.display = "none";
+        function openChocolateDay() { document.getElementById("chocolateModal").style.display = "block"; }
+        function closeChocolateDay() { document.getElementById("chocolateModal").style.display = "none"; }
+
+        let openedChocolates = new Set();
+        function eatChoc(element, title, message) {
+            element.classList.add('eaten');
+            const log = document.getElementById('choc-log');
+            if (openedChocolates.size === 0) log.innerHTML = '';
+            
+            if (!openedChocolates.has(title)) {
+                openedChocolates.add(title);
+                const entry = document.createElement('div');
+                entry.className = 'note-entry';
+                entry.innerHTML = `<strong>${title}:</strong> ${message}`;
+                log.prepend(entry);
             }
+        }
+
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') event.target.style.display = "none";
         }
     </script>
 
