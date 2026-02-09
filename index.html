@@ -367,10 +367,14 @@
             </div>
         </div>
 
-        <div class="day-card locked" id="day4">
+        <div class="day-card" id="day4" onclick="openTeddyDay()">
             <span class="date-label">February 10, 2026</span>
             <h2 class="day-title">🧸 Teddy Day</h2>
-            <div class="content"><span class="lock-icon">🔒</span><p>Coming Soon...</p></div>
+            <div class="content">
+                <div class="preview-emoji">🧸</div>
+                <p>A secret kept for 4 years...</p>
+                <p style="text-decoration: underline; font-size: 0.8rem;">Click to unlock</p>
+            </div>
         </div>
 
         <div class="day-card locked" id="day5">
@@ -465,6 +469,28 @@
             <button onclick="closeChocolateDay()" style="background:#ff4d6d; color:white; border:none; padding:10px 25px; border-radius:20px; cursor:pointer; margin-top:15px;">Close Box</button>
         </div>
     </div>
+
+
+    <div id="teddyModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeTeddyDay()">&times;</span>
+            <h2 style="color: #8d5524;">The Teddy Vault 🧸</h2>
+            
+            <div id="vaultPrompt">
+                <p>To see our memories, enter our special 4-digit year or date:</p>
+                <input type="password" id="vaultCode" placeholder="Enter code..." style="padding: 10px; border-radius: 10px; border: 1px solid #ffccd5; margin-bottom: 10px; text-align: center;">
+                <br>
+                <button onclick="checkVaultCode()" style="background:#ff4d6d; color:white; border:none; padding:10px 25px; border-radius:20px; cursor:pointer;">Unlock Memories</button>
+                <p id="vaultError" style="color: red; display: none; font-size: 0.8rem; margin-top: 10px;">Incorrect code. Try again!</p>
+            </div>
+
+            <div id="vaultContent" style="display: none;">
+                <div class="teddy-animation">🧸✨</div>
+                <p><strong>Access Granted!</strong></p>
+                <p>"I've gathered all our favorite moments and a few surprises in our private memory box."</p>
+                <a href="https://photos.app.goo.gl/bZDowVpyWQw9UHxP7" target="_blank" style="display: inline-block; background:#8d5524; color:white; text-decoration: none; padding:15px 30px; border-radius:30px; margin-top:10px; font-weight: bold;">Open Our Memory Box ❤️</a>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -493,6 +519,32 @@
                 entry.className = 'note-entry';
                 entry.innerHTML = `<strong>${title}:</strong> ${message}`;
                 log.prepend(entry);
+            }
+        }
+
+        function openTeddyDay() {
+            document.getElementById("teddyModal").style.display = "block";
+            // Reset the vault when opening
+            document.getElementById("vaultPrompt").style.display = "block";
+            document.getElementById("vaultContent").style.display = "none";
+            document.getElementById("vaultCode").value = "";
+        }
+
+        function closeTeddyDay() {
+            document.getElementById("teddyModal").style.display = "none";
+        }
+
+        function checkVaultCode() {
+            const code = document.getElementById("vaultCode").value;
+            const error = document.getElementById("vaultError");
+            
+            
+            if (code === "11:11") {
+                document.getElementById("vaultPrompt").style.display = "none";
+                document.getElementById("vaultContent").style.display = "block";
+                error.style.display = "none";
+            } else {
+                error.style.display = "block";
             }
         }
 
