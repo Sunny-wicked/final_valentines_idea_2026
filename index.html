@@ -319,6 +319,78 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
         /*end of day 3*/
 
+        /*day 5*/
+        .promise-container {
+            padding: 20px;
+            min-height: 200px;
+        }
+
+        .pinky-sware {
+            font-size: 5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .pinky-sware.sealed {
+            transform: scale(1.2) rotate(-10deg);
+            filter: drop-shadow(0 0 10px #ff4d6d);
+        }
+
+        .promise-item {
+            background: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 15px;
+            border-left: 5px solid #ff4d6d;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
+            transform: translateX(-20px);
+            opacity: 0;
+            animation: slideIn 0.5s forwards;
+        }
+
+        /* Flying hearts animation */
+        .heart-particle {
+            position: fixed;
+            pointer-events: none;
+            font-size: 1.5rem;
+            z-index: 2000;
+            animation: flyUp 1.5s ease-out forwards;
+        }
+
+        @keyframes flyUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-200px) translateX(var(--random-x)) scale(0); opacity: 0; }
+        }
+
+        /* The "Sealed" Stamp for the Dashboard card */
+        .sealed-stamp {
+            background: #ff4d6d;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
+        }
+
+        @keyframes slideIn {
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Staggered animation for the list items */
+        .promise-item:nth-child(1) { animation-delay: 0.2s; }
+        .promise-item:nth-child(2) { animation-delay: 0.5s; }
+        .promise-item:nth-child(3) { animation-delay: 0.8s; }
+        .promise-item:nth-child(4) { animation-delay: 1.1s; }
+
+
+        /*end of day 5*/
+
         @media (max-width: 600px) {
             .modal-content { padding: 20px; width: 85%; }
             .rose-wrapper { height: 300px; }
@@ -377,10 +449,14 @@
             </div>
         </div>
 
-        <div class="day-card locked" id="day5">
+        <div class="day-card" id="day5" onclick="openPromiseDay()">
             <span class="date-label">February 11, 2026</span>
             <h2 class="day-title">🤝 Promise Day</h2>
-            <div class="content"><span class="lock-icon">🔒</span><p>Coming Soon...</p></div>
+            <div class="content">
+                <div class="preview-emoji">🤙</div>
+                <p>Some things never change.</p>
+                <p style="text-decoration: underline; font-size: 0.8rem;">Click to seal it</p>
+            </div>
         </div>
 
         <div class="day-card locked" id="day6">
@@ -493,6 +569,33 @@
         </div>
     </div>
 
+    <div id="promiseModal" class="modal">
+        <div class="modal-content" style="background: #fff5f7;">
+            <span class="close-modal" onclick="closePromiseDay()">&times;</span>
+            <h2 style="color: #590d22;">A Pinky Swear... 🤙</h2>
+            
+            <div class="promise-container">
+                <div id="pinkyIcon" class="pinky-sware" onclick="sealPromise()">
+                    🤙
+                </div>
+                <div id="promiseList" style="display:none; margin-top: 20px; text-align: left;">
+                    <ul style="list-style: none; padding: 0;">
+                        <li class="promise-item">✨ I promise to always be your safe place.</li>
+                        <li class="promise-item">✨ I promise to never stop choosing us.</li>
+                        <li class="promise-item">✨ I promise that the distance is only temporary.</li>
+                        <li class="promise-item">✨ I promise to love you more in Year 5 than Year 4.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p id="promiseHint" style="font-size: 0.9rem; color: #ff4d6d; margin-top: 15px;">
+                Tap the pinky to seal our future.
+            </p>
+            
+            <button onclick="finalPromiseSeal()" id="finalPromiseBtn" style="background:#590d22; color:white; border:none; padding:10px 25px; border-radius:20px; cursor:pointer; margin-top:15px;">I Promise Too ❤️</button>
+        </div>
+    </div>
+
     <script>
         function openRoseDay() { document.getElementById("roseModal").style.display = "block"; }
         function closeRoseDay() { document.getElementById("roseModal").style.display = "none"; }
@@ -546,6 +649,67 @@
             } else {
                 error.style.display = "block";
             }
+        }
+
+
+        function openPromiseDay() { 
+            document.getElementById("promiseModal").style.display = "block";
+            // Reset state
+            document.getElementById("pinkyIcon").classList.remove("sealed");
+            document.getElementById("promiseList").style.display = "none";
+            document.getElementById("promiseHint").innerText = "Tap the pinky to seal our future.";
+        }
+
+        function closePromiseDay() { 
+            document.getElementById("promiseModal").style.display = "none"; 
+        }
+
+        function sealPromise() {
+            const pinky = document.getElementById("pinkyIcon");
+            const list = document.getElementById("promiseList");
+            const hint = document.getElementById("promiseHint");
+
+            pinky.classList.add("sealed");
+            list.style.display = "block";
+            hint.innerText = "Sealed Forever. ❤️";
+        }
+
+        function finalPromiseSeal() {
+            const btn = document.getElementById("finalPromiseBtn");
+            const rect = btn.getBoundingClientRect();
+
+            // 1. Create Heart Burst
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement("div");
+                heart.innerHTML = "❤️";
+                heart.className = "heart-particle";
+                heart.style.left = (rect.left + rect.width / 2) + "px";
+                heart.style.top = rect.top + "px";
+                heart.style.setProperty('--random-x', (Math.random() * 200 - 100) + "px");
+                document.body.appendChild(heart);
+                
+                // Clean up heart after animation
+                setTimeout(() => heart.remove(), 1500);
+            }
+
+            // 2. Update the Dashboard Card permanently
+            const day5Card = document.getElementById("day5");
+            if (!document.getElementById("day5-stamp")) {
+                const stamp = document.createElement("span");
+                stamp.id = "day5-stamp";
+                stamp.className = "sealed-stamp";
+                stamp.innerText = "SEALED ✓";
+                day5Card.appendChild(stamp);
+                
+                // Change the text on the card too
+                day5Card.querySelector('p:last-child').innerText = "Our promises are locked in.";
+                day5Card.querySelector('p:last-child').style.color = "#ff4d6d";
+            }
+
+            // 3. Close the modal after a short delay so she sees the hearts
+            setTimeout(() => {
+                closePromiseDay();
+            }, 1000);
         }
 
         window.onclick = function(event) {
