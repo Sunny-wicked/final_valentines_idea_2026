@@ -391,6 +391,119 @@
 
         /*end of day 5*/
 
+        /*day 6*/
+        /* Meeting Track Styling */
+        .hug-interface { padding: 20px 0; position: relative; }
+
+        .distance-counter {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff4d6d;
+            margin-bottom: 20px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .meeting-track {
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            background: #fff;
+            border-radius: 40px;
+            margin-bottom: 30px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .side-heart { font-size: 2.5rem; transition: transform 0.1s linear; z-index: 2; }
+
+        /* Custom Slider - Glassmorphism Style */
+        .slider-wrapper { width: 100%; padding: 10px 0; }
+
+        #hugSlider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 15px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #ffccd5 0%, #ff4d6d 100%);
+            outline: none;
+            cursor: pointer;
+        }
+
+        #hugSlider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 35px;
+            height: 35px;
+            background: #fff;
+            border: 3px solid #ff4d6d;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        /* Heartbeat Animation for "I Miss You" */
+        @keyframes heartbeat-bg {
+            0% { background-color: #fff0f3; }
+            50% { background-color: #ffb3c1; }
+            100% { background-color: #fff0f3; }
+        }
+
+        .heartbeat-active { animation: heartbeat-bg 0.8s ease-in-out infinite; }
+
+        .hug-sent-badge {
+            background: #ff4d6d;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        /* The Pulsing Button */
+        .pulse-glow {
+            animation: pulse-red 2s infinite, bounceIn 1s ease-out;
+            box-shadow: 0 0 0 0 rgba(255, 77, 109, 0.7);
+            transform: scale(1);
+        }
+
+        @keyframes pulse-red {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 77, 109, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(255, 77, 109, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 77, 109, 0); }
+        }
+
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes simpleFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+/* Then update your success div to use it: */
+#hugSuccess { display:none; animation: simpleFade 1s; }
+
+        /* Add a "Instruction" label above the button */
+        .btn-hint {
+            display: block;
+            font-size: 0.8rem;
+            color: #ff4d6d;
+            margin-bottom: 8px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: fadeIn 2s;
+        }
+
+        /*end of day 6*/
+
         @media (max-width: 600px) {
             .modal-content { padding: 20px; width: 85%; }
             .rose-wrapper { height: 300px; }
@@ -459,10 +572,14 @@
             </div>
         </div>
 
-        <div class="day-card locked" id="day6">
+        <div class="day-card" id="day6" onclick="openHugDay()">
             <span class="date-label">February 12, 2026</span>
             <h2 class="day-title">🫂 Hug Day</h2>
-            <div class="content"><span class="lock-icon">🔒</span><p>Coming Soon...</p></div>
+            <div class="content">
+                <div id="hug-status-icon" style="font-size: 3rem;">🫂</div>
+                <p id="hug-card-text">243km is too far. Let's fix that.</p>
+                <p style="text-decoration: underline; font-size: 0.8rem;">Click to close the gap</p>
+            </div>
         </div>
 
         <div class="day-card locked" id="day7">
@@ -596,6 +713,42 @@
         </div>
     </div>
 
+    <div id="hugModal" class="modal">
+        <div class="modal-content" style="background: #fff5f5; border: 2px solid #ff8fa3;">
+            <span class="close-modal" onclick="closeHugDay()">&times;</span>
+            <h2 style="color: #ff4d6d; margin-bottom: 5px;">243 Kilometers Apart</h2>
+            <p style="font-size: 0.9rem; color: #888;">Slide the heart to bring us together</p>
+            
+            <div class="hug-interface">
+                <div class="distance-counter"><span id="kmCount">243</span> KM</div>
+                
+                <div class="meeting-track">
+                    <div id="heart-left" class="side-heart">❤️</div>
+                    <div id="heart-right" class="side-heart">❤️</div>
+                </div>
+
+                <div class="slider-wrapper">
+                    <input type="range" id="hugSlider" min="0" max="243" value="0" oninput="syncHug(this.value)">
+                </div>
+            </div>
+
+            <div id="hugSuccess" style="display:none; animation: fadeIn 1s;">
+                <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3diemZlYjQ0ZjlsamdzdXNiendvc25tNXBhczBucHhxd3RyenZybyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IzXiddo2twMmdmU8Lv/giphy.gif" 
+                    alt="Romantic Hug" style="width: 100%; border-radius: 15px; margin: 15px 0; box-shadow: 0 5px 15px rgba(255,77,109,0.3);">
+                <p style="font-style: italic; color: #590d22; font-weight: bold;">"Finally, right where you belong."</p>
+            </div>
+            
+            <div class="modal-footer" style="margin-top: 20px;">
+                <div id="hugSuccessHint" style="display:none;">
+                    <span class="btn-hint">Click to send your heartbeat back! 👇</span>
+                    <button id="missYouBtn" onclick="sendMissYou()" class="pulse-glow" style="background:#ff4d6d; color:white; border:none; padding:15px 35px; border-radius:30px; cursor:pointer; font-weight:bold; font-size: 1.1rem;">
+                        I Miss You ❤️
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function openRoseDay() { document.getElementById("roseModal").style.display = "block"; }
         function closeRoseDay() { document.getElementById("roseModal").style.display = "none"; }
@@ -711,6 +864,100 @@
                 closePromiseDay();
             }, 1000);
         }
+
+        /*day 6*/
+        function openHugDay() { 
+            document.getElementById("hugModal").style.display = "block";
+            // Reset the UI to initial state
+            document.getElementById("hugSlider").disabled = false;
+            document.getElementById("hugSlider").value = 0;
+            document.getElementById("kmCount").innerText = "243";
+            document.querySelector(".hug-interface").style.display = "block";
+            document.querySelector(".hug-interface").style.opacity = "1";
+            document.getElementById("hugSuccess").style.display = "none";
+            document.getElementById("hugSuccessHint").style.display = "none";
+            document.getElementById("heart-left").style.transform = "translateX(0)";
+            document.getElementById("heart-right").style.transform = "translateX(0)";
+            document.getElementById("heart-left").innerText = "❤️";
+        }
+        function closeHugDay() { document.getElementById("hugModal").style.display = "none"; }
+
+        function syncHug(val) {
+            const kmCount = document.getElementById("kmCount");
+            const hLeft = document.getElementById("heart-left");
+            const hRight = document.getElementById("heart-right");
+            const success = document.getElementById("hugSuccess");
+            const interface = document.querySelector(".hug-interface");
+            const modalContent = document.querySelector("#hugModal .modal-content");
+
+            let remaining = 243 - val;
+            kmCount.innerText = remaining;
+
+            // Move hearts toward center
+            let moveX = (val / 243) * 110; 
+            hLeft.style.transform = `translateX(${moveX}px)`;
+            hRight.style.transform = `translateX(-${moveX}px)`;
+
+            if (remaining <= 0) {
+                // 1. Lock the slider so she can't move it back
+                document.getElementById("hugSlider").disabled = true;
+                
+                // 2. The "Impact" effect: White flash and heart growth
+                kmCount.innerText = "0";
+                hLeft.innerText = "💖";
+                hRight.style.display = "none"; 
+                hLeft.style.transform = "translateX(50%) scale(2)";
+                modalContent.style.background = "#fff"; // Flash white
+                
+                // 3. The Delay: Wait 1.5 seconds before showing the GIF
+                setTimeout(() => {
+                    interface.style.opacity = "0";
+                    setTimeout(() => {
+                        interface.style.display = "none";
+                        success.style.display = "block";
+                        modalContent.style.background = "#fff5f5"; // Back to soft pink
+                        
+                        // Show the button with its own animation
+                        showMissYouButton();
+                    }, 500);
+                }, 1500);
+            }
+        }
+
+        function showMissYouButton() {
+            const btn = document.getElementById("hugSuccessHint");
+            btn.style.display = "block";
+            btn.classList.add("pulse-glow"); // We will define this in CSS
+        }
+
+        function sendMissYou() {
+            const modalContent = document.querySelector("#hugModal .modal-content");
+            const dashboardCard = document.getElementById("day6");
+            
+            // 1. Start Heartbeat Animation (using the CSS class you already defined)
+            modalContent.classList.add("heartbeat-active");
+            
+            // 2. Change Dashboard Card permanently
+            if (!document.getElementById("hug-sent")) {
+                const badge = document.createElement("span");
+                badge.id = "hug-sent";
+                badge.className = "hug-sent-badge"; // Using the CSS class you already defined
+                badge.innerText = "HUG RECEIVED ❤️";
+                dashboardCard.appendChild(badge);
+                
+                document.getElementById("hug-card-text").innerText = "Distance: 0km in our hearts.";
+                document.getElementById("hug-status-icon").innerText = "💖";
+            }
+
+            // 3. Show a sweet alert and stop heartbeat after 2.5 seconds
+            setTimeout(() => {
+                alert("A heartbeat was just sent to him. He misses you too! ❤️");
+                modalContent.classList.remove("heartbeat-active");
+                closeHugDay();
+            }, 2500);
+        }
+
+        /* end of day 6*/
 
         window.onclick = function(event) {
             if (event.target.className === 'modal') event.target.style.display = "none";
