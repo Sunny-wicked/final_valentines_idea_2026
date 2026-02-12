@@ -487,8 +487,8 @@
             to { opacity: 1; }
         }
 
-/* Then update your success div to use it: */
-#hugSuccess { display:none; animation: simpleFade 1s; }
+        /* Then update your success div to use it: */
+        #hugSuccess { display:none; animation: simpleFade 1s; }
 
         /* Add a "Instruction" label above the button */
         .btn-hint {
@@ -503,6 +503,201 @@
         }
 
         /*end of day 6*/
+
+        /*day 7*/
+
+        /* Lipstick Mark Styling */
+        .lipstick-mark {
+            position: absolute;
+            font-size: 2.5rem;
+            pointer-events: none;
+            animation: kissPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            z-index: 100;
+        }
+
+        @keyframes kissPop {
+            0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+            100% { transform: scale(1) rotate(var(--rot)); opacity: 0.8; }
+        }
+
+        /* Blush Effect for the Modal */
+        .blush-active {
+            background-color: #ffccd5 !important;
+            transition: background-color 2s ease;
+        }
+
+        /* Kiss Received Badge for Dashboard */
+        .kiss-badge {
+            background: #ff4d6d;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-weight: bold;
+        }
+
+        /* Polaroid Styling */
+        .polaroid-frame {
+            background: white;
+            padding: 15px 15px 40px 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: rotate(-3deg);
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            max-width: 280px;
+            margin: 0 auto 20px;
+        }
+
+        .photo-area {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            background: #222;
+        }
+
+        #couple-photo { width: 100%; height: 100%; object-fit: cover; }
+
+        .photo-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: grayscale(100%);
+            transition: opacity 2s ease;
+            z-index: 2;
+        }
+
+        .kiss-prompt {
+            position: absolute;
+            bottom: 10px; width: 100%;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+            z-index: 3;
+            animation: pulse 1.5s infinite;
+        }
+
+        .polaroid-caption {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 1.5rem;
+            color: #555;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        /* Floating Hearts */
+        .floating-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+            animation: floatUp 2s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-150px) translateX(var(--rx)) scale(1.5); opacity: 0; }
+        }
+
+        /* Handwritten Note */
+        .handwritten-note {
+            font-family: 'Segoe Print', 'Comic Sans MS', cursive;
+            background: #fff9c4;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+            border-left: 2px solid #fbc02d;
+            animation: simpleFade 2s ease-in;
+        }
+
+        /* Kiss Meter */
+        .kiss-meter-container {
+            width: 200px;
+            height: 20px;
+            background: #ffe5ec;
+            border-radius: 10px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #ff8fa3;
+        }
+        #kiss-meter-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff8fa3, #ff4d6d);
+            transition: width 0.5s ease;
+        }
+        #kiss-meter-text {
+            position: absolute;
+            width: 100%;
+            text-align: left;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #590d22;
+            top: 2px;
+        }
+
+        /* Fading Lipstick Marks */
+        .lipstick-mark {
+            position: absolute;
+            font-size: 2.5rem;
+            pointer-events: none;
+            z-index: 100;
+            transition: opacity 2s ease; /* This makes them go transparent */
+        }
+
+        /* Giant Kiss Finale */
+        #giant-kiss-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 77, 109, 0.2);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            font-size: 20rem;
+            z-index: 3000;
+            pointer-events: none;
+        }
+
+        .screen-kiss-anim {
+            display: flex !important;
+            animation: kissTheScreen 1.5s forwards;
+        }
+
+        @keyframes kissTheScreen {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(5); opacity: 0; }
+        }
+
+        /* Button & Note Styles */
+        #kiss-finish-btn {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        .tap-hint {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            background: rgba(0,0,0,0.3);
+            padding: 5px 15px;
+            border-radius: 20px;
+            animation: pulse 1.5s infinite;
+        }
+
+        /*end of day 7*/
 
         @media (max-width: 600px) {
             .modal-content { padding: 20px; width: 85%; }
@@ -582,10 +777,14 @@
             </div>
         </div>
 
-        <div class="day-card locked" id="day7">
+        <div class="day-card" id="day7" onclick="openKissDay()">
             <span class="date-label">February 13, 2026</span>
             <h2 class="day-title">💋 Kiss Day</h2>
-            <div class="content"><span class="lock-icon">🔒</span><p>Coming Soon...</p></div>
+            <div class="content">
+                <div id="kiss-status-icon" style="font-size: 3rem;">💋</div>
+                <p id="kiss-card-text">Every kiss is a countdown to our next meeting.</p>
+                <p style="text-decoration: underline; font-size: 0.8rem;">Tap to send a kiss</p>
+            </div>
         </div>
 
         <div class="day-card locked" id="day8" style="background: rgba(216, 27, 96, 0.3);">
@@ -748,6 +947,46 @@
             </div>
         </div>
     </div>
+
+
+    <div id="kissModal" class="modal">
+        <div class="modal-content" id="kiss-modal-body" style="background: #fffafa; border: none; min-height: 500px; padding: 30px 20px; overflow: hidden;">
+            <span class="close-modal" onclick="closeKissDay()">&times;</span>
+            
+            <h2 style="color: #ff4d6d; margin-bottom: 5px;">Kiss Day 💋</h2>
+            
+            <div id="kiss-header">
+                <p style="font-size: 0.9rem; color: #888; margin-bottom: 10px;">The more you kiss, the closer I feel.</p>
+                <div class="kiss-meter-container">
+                    <div id="kiss-meter-fill"></div>
+                    <span id="kiss-meter-text">0/3 Kisses</span>
+                </div>
+            </div>
+
+            <div class="polaroid-frame" id="polaroid" style="margin-top: 20px;">
+                <div class="photo-area" id="kiss-target" onclick="addRomanticKiss(event)">
+                    <div class="photo-overlay" id="photo-bw"></div>
+                    <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=500" alt="Our Memory" id="couple-photo">
+                    <div class="tap-hint">Tap to Kiss 💋</div>
+                </div>
+                <div class="polaroid-caption">February 13, 2026</div>
+            </div>
+
+            <div id="romantic-note" class="handwritten-note" style="display:none;">
+                <p>"I've counted every kilometer between us... all 243. But today, none of that matters. Every kiss you just sent is a promise for the day the distance hits zero."</p>
+                <p style="text-align: right; font-weight: bold; margin-top: 15px;">— Always Yours ❤️</p>
+                
+                <div class="finale-button-zone">
+                    <p style="font-size: 0.7rem; color: #ff4d6d; margin-bottom: 5px;">Ready for the big finale tomorrow?</p>
+                    <button onclick="finishKissDay()" class="pulse-glow" id="kiss-finish-btn">
+                        I Can't Wait! 💋
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="giant-kiss-overlay">💋</div>
 
     <script>
         function openRoseDay() { document.getElementById("roseModal").style.display = "block"; }
@@ -959,6 +1198,143 @@
 
         /* end of day 6*/
 
+        /*day 7*/
+
+        let romanticKisses = 0;
+
+        function openKissDay() {
+            document.getElementById("kissModal").style.display = "block";
+            romanticKisses = 0;
+            document.getElementById("kiss-meter-fill").style.width = "0%";
+            document.getElementById("kiss-meter-text").innerText = "0/3 Kisses";
+            document.getElementById("photo-bw").style.opacity = "1";
+            document.getElementById("polaroid").style.display = "block";
+            document.getElementById("polaroid").style.opacity = "1";
+            document.getElementById("romantic-note").style.display = "none";
+            document.getElementById("kiss-header").style.display = "block";
+            document.querySelectorAll('.lipstick-mark').forEach(m => m.remove());
+        }
+
+        function addRomanticKiss(event) {
+            if (romanticKisses >= 3) return; // Stop at 3
+            
+            romanticKisses++;
+            
+            // 1. Update Meter
+            const fillPercent = (romanticKisses / 3) * 100;
+            document.getElementById("kiss-meter-fill").style.width = fillPercent + "%";
+            document.getElementById("kiss-meter-text").innerText = romanticKisses + "/3 Kisses";
+
+            // 2. Add Lipstick Mark
+            const mark = document.createElement("div");
+            mark.className = "lipstick-mark";
+            mark.innerHTML = "💋";
+            const rect = document.getElementById("kiss-modal-body").getBoundingClientRect();
+            mark.style.left = (event.clientX - rect.left - 20) + "px";
+            mark.style.top = (event.clientY - rect.top - 20) + "px";
+            document.getElementById("kiss-modal-body").appendChild(mark);
+
+            // 3. Developing Effect
+            document.getElementById("photo-bw").style.opacity = 1 - (romanticKisses * 0.33);
+
+            if (romanticKisses === 3) {
+                setTimeout(() => {
+                    // Fade out lipstick marks so the note is readable
+                    document.querySelectorAll('.lipstick-mark').forEach(m => m.style.opacity = "0.15");
+                    
+                    // Transition to Note
+                    document.getElementById("polaroid").style.opacity = "0";
+                    document.getElementById("kiss-header").style.opacity = "0";
+                    
+                    setTimeout(() => {
+                        document.getElementById("polaroid").style.display = "none";
+                        document.getElementById("kiss-header").style.display = "none";
+                        document.getElementById("romantic-note").style.display = "block";
+                    }, 500);
+                }, 1000);
+            }
+        }
+
+        let kissCount = 0;
+
+        function openKissDay() {
+            document.getElementById("kissModal").style.display = "block";
+            // Reset state
+            kissCount = 0;
+            document.getElementById("kiss-target").style.display = "block";
+            document.getElementById("kiss-message").style.display = "none";
+            document.getElementById("kiss-instruction").innerText = "Tap the lips 3 times to send your love...";
+            document.getElementById("kiss-modal-body").classList.remove("blush-active");
+            // Clear old lipstick marks
+            const marks = document.querySelectorAll('.lipstick-mark');
+            marks.forEach(m => m.remove());
+        }
+
+        function closeKissDay() {
+            document.getElementById("kissModal").style.display = "none";
+        }
+
+        function addKiss(event) {
+            kissCount++;
+            
+            // 1. Create lipstick mark emoji
+            const mark = document.createElement("div");
+            mark.className = "lipstick-mark";
+            mark.innerHTML = "💋";
+            
+            // 2. Position it where she tapped (relative to the modal content)
+            const rect = document.getElementById("kiss-modal-body").getBoundingClientRect();
+            const x = event.clientX - rect.left - 20;
+            const y = event.clientY - rect.top - 20;
+            
+            mark.style.left = x + "px";
+            mark.style.top = y + "px";
+            mark.style.setProperty('--rot', (Math.random() * 40 - 20) + "deg");
+            
+            document.getElementById("kiss-modal-body").appendChild(mark);
+
+            // 3. Shake the target lips
+            const target = document.getElementById("kiss-target");
+            target.style.transform = "scale(1.2)";
+            setTimeout(() => target.style.transform = "scale(1)", 100);
+
+            // 4. Check if 3 kisses are reached
+            if (kissCount === 3) {
+                setTimeout(() => {
+                    document.getElementById("kiss-target").style.display = "none";
+                    document.getElementById("kiss-instruction").innerText = "Mwah! ❤️";
+                    document.getElementById("kiss-modal-body").classList.add("blush-active");
+                    document.getElementById("kiss-message").style.display = "block";
+                }, 600);
+            }
+        }
+
+        function finishKissDay() {
+            // 1. The "Screen Kiss" Effect
+            const overlay = document.getElementById("giant-kiss-overlay");
+            overlay.classList.add("screen-kiss-anim");
+
+            // 2. Permanent Dashboard Change
+            const dashboardCard = document.getElementById("day7");
+            if (!document.getElementById("kiss-badge-id")) {
+                const badge = document.createElement("span");
+                badge.id = "kiss-badge-id";
+                badge.className = "kiss-badge";
+                badge.innerText = "KISSES SENT 💋";
+                dashboardCard.appendChild(badge);
+                document.getElementById("kiss-status-icon").innerText = "😘";
+            }
+
+            // 3. Close everything after animation
+            setTimeout(() => {
+                overlay.classList.remove("screen-kiss-anim");
+                closeKissDay();
+                // Scroll to Day 8 to tease the finale
+                document.getElementById("day8").scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        }
+        
+        /*end of day 7*/
         window.onclick = function(event) {
             if (event.target.className === 'modal') event.target.style.display = "none";
         }
