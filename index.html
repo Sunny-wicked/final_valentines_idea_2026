@@ -699,6 +699,158 @@
 
         /*end of day 7*/
 
+        /*day 8*/
+
+        /* Day 8 Premium Styles */
+        .finale-content {
+            background: #1a1a1a !important; /* Elegant Black */
+            color: #ffd700 !important;   /* Golden Text */
+            border: 3px solid #d4af37 !important;
+            text-align: center;
+            max-width: 500px !important;
+            min-height: 550px;
+        }
+
+        .unlock-btn {
+            background: linear-gradient(45deg, #d4af37, #f4e07d);
+            color: #1a1a1a;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .photo-stack {
+            position: relative;
+            height: 380px;
+            width: 270px;
+            margin: 0 auto;
+        }
+
+        .photo-card {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
+            padding: 10px 10px 45px 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: rotate(calc(var(--i) * 3deg)) translateY(calc(var(--i) * -4px));
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .photo-card.swiped {
+            transform: translateX(180%) rotate(45deg) scale(0.5);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .card-caption {
+            color: #77ff00;
+            font-family: 'Brush Script MT', cursive;
+            font-size: 1.1rem;
+            padding-top: 10px;
+            text-align: center;
+        }
+
+        .final-letter {
+            background: #fffafa;
+            color: #590d22;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: left;
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            border-left: 8px solid #d4af37;
+        }
+
+        .finale-celebrate-btn {
+            background: linear-gradient(45deg, #ff4d6d, #ff8fa3);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            animation: heartbeat 1.5s infinite;
+        }
+
+
+        .slideshow-container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        #photo-display-area {
+            width: 100%;
+            height: 450px; /* Fixed height to keep layout stable */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #000; /* Black background looks premium for photos */
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        #current-slide-img {
+            max-width: 100%;
+            max-height: 85%; /* Leave room for caption */
+            object-fit: contain; /* This handles vertical vs horizontal automatically */
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-controls {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-btn {
+            background: #d4af37;
+            color: black;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .revisit-btn {
+            background: transparent;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        #slide-number {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Year Hearts Progression */
+        
+
+        /*end of day 8*/
+
         @media (max-width: 600px) {
             .modal-content { padding: 20px; width: 85%; }
             .rose-wrapper { height: 300px; }
@@ -787,13 +939,16 @@
             </div>
         </div>
 
-        <div class="day-card locked" id="day8" style="background: rgba(216, 27, 96, 0.3);">
+        <div class="day-card" id="day8" onclick="openValentineDay()" style="border: 3px solid #d4af37; background: rgba(255, 215, 0, 0.1); position: relative;">
             <span class="date-label">February 14, 2026</span>
-            <h2 class="day-title">💝 Valentine's Day</h2>
-            <div class="content"><span class="lock-icon">🔒</span><p>The Grand Finale</p></div>
+            <div style="background: #d4af37; color: white; font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; position: absolute; top: 10px; right: 10px; font-weight: bold;">8 YEARS</div>
+            <h2 class="day-title">👑 The Forever Vault</h2>
+            <div class="content">
+                <div id="val-status-icon" style="font-size: 3.5rem; animation: heartbeat 1.5s infinite;">🎁</div>
+                <p>From Jan 25, 2018 to Infinity.</p>
+                <p style="font-weight: bold; color: #d4af37;">Unlock Our Memories</p>
+            </div>
         </div>
-    </div>
-
 
     <div id="roseModal" class="modal">
         <div class="modal-content">
@@ -988,6 +1143,45 @@
 
     <div id="giant-kiss-overlay">💋</div>
 
+    <div id="valentineModal" class="modal">
+        <div class="modal-content finale-content">
+            <span class="close-modal" onclick="closeValentineDay()">&times;</span>
+            
+            <div id="vault-lock-screen">
+                <h2 style="color: #d4af37;">The 8-Year Vault 🔒</h2>
+                <p>Enter our anniversary day:</p>
+                <input type="number" id="vault-pass" placeholder="DD" style="width: 80px; padding: 10px; border-radius: 10px; border: 2px solid #d4af37; text-align: center; font-size: 1.5rem; background: #333; color: #ffd700;">
+                <br><br>
+                <button onclick="unlockVault()" class="unlock-btn">Unlock Story</button>
+            </div>
+
+            <div id="vault-gallery" style="display:none;">
+                <h2 style="color: #d4af37;">8 Years of Us</h2>
+                
+                <div class="slideshow-container">
+                    <div id="photo-display-area">
+                        <img id="current-slide-img" src="" alt="Memory">
+                        <div id="current-caption" class="card-caption"></div>
+                    </div>
+
+                    <div class="nav-controls">
+                        <button onclick="changeSlide(-1)" class="nav-btn">❮ Back</button>
+                        <span id="slide-number">1 / 19</span>
+                        <button onclick="changeSlide(1)" id="next-btn" class="nav-btn">Next ❯</button>
+                    </div>
+                </div>
+
+                <div id="final-letter-box" style="display:none; margin-top: 20px;">
+                    <div class="final-letter">
+                        <p><strong>To my favorite person,</strong></p>
+                        <p>8 years ago I laid my eyes on the finest, perfect, most beautiful hooman, Ji Aap, my life changed. 243km is just a number because you are my home. Happy Valentine's Day! ❤️</p>
+                    </div>
+                    <button onclick="restartGallery()" class="revisit-btn">Revisit Memories 🔄</button>
+                    <button onclick="celebrateFinale()" class="finale-celebrate-btn">I Love You ♾️</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         function openRoseDay() { document.getElementById("roseModal").style.display = "block"; }
         function closeRoseDay() { document.getElementById("roseModal").style.display = "none"; }
@@ -1335,6 +1529,98 @@
         }
         
         /*end of day 7*/
+
+        /*day 8*/
+
+        function openValentineDay() { document.getElementById("valentineModal").style.display = "block"; }
+        function closeValentineDay() { document.getElementById("valentineModal").style.display = "none"; }
+
+        let currentIdx = 0;
+        const driveIDs = [
+            "1pJ9m-SvyoT9NyE1lVWDR5jhw8S9BhueA", "1H_Ddn76UzgctJLAZw3xSCQy2BxniC34Y", "1hR3tLjeKIB7yIyoiwW5ZZkCkj1lIEfaC", "18GTKPhu0YZdwaqrrRfAk3uCGM6cSNRZZ", "1mytoX0TcfnWIVtlEOFEzXwTfpdDAvVn9", "1jAe_IJYzX8dCf6lesRsT_07jwxQZ1Wr-", "11uwovjQ3zC35arKBfFAGmO5_0ayRnOWs", "1vzMBclabgbJeUAvSh3Zu4os093dtrXAx", "1Ch5eXDrN64nO4L5mCfAgJXHYM1q09tWF",
+            "1C3YVi7aTF6CZLlYK2151PQ60_I22gAjJ", "1vwTNUL9JJvpVzH_x6EA1NQU8azIpTyyf", "13EA2oqzukcKcCe_hTdNhSFMqPt4wqxVQ", "1T4_CHyUTQr8lFmw7Ys2hwD-mk8OBAwrJ", "1hayamwwoXhrPYXQAsRZq_upSSrVH6V-L", "12zyMkUuaSaxJazqUpa4zs2scNqtWDXaA", "1vTM6iBM_MdD191uyRJcZfLMaL1i4KOXk", "1D_Y9F4GVon5rrs_Xo1zkOnPQhSGOHfeT", "1uu9eOp6ImdC3d9zXVB6NG8O0IwJQ0FDd",
+            "1XYVskbuVgfzEg5FOec0-UYLeEXpR9IDx", "10qK-Bl_SaMu5GiqaSP_pMH0UXsgyg5lK", "1bUCTZXhrR-uKShALnoyqQD2J-PcVQLZ0", "19EqrZ-klwrbbrJ2cnCgTkWYahynMCUZO", "1xRJPySoRHaqOf5GdNulyQ9WGLNnV8uib"
+        ];
+
+        const captions = [
+            "Finally the day has arrived!!!!!!!!", "Where it all started ❤️", "The way you use to look at me ✨",
+            "The eyes....💘", "The smile🤩", "Trapped me into being a THARKI and now ditches me BISCUIT!!!!. I have proof!!!!!!!!😭😭", "Our Zones together", "Cursing me infront of my friends 😑",
+            "Our first Date 💝❤️‍🔥", "My favourite part 😁", "Kinda hairy but I like it", "Very cute bro", "😚😚😚😚😚😚😚😚😚", "Such Innocent face. Hatoh", "Lip biting oho 😂", "The Perfect Forehead 😍😍", 
+            "Ears to my music", "Heheheheheheheheheheehehe, mast meh ekdam 😂", "Bombastic side eye 👀 🤣🤣", "Mai toh daargi 🫣🫣🫣", "He only loves me truly 😻😻", "The future I'm hoping for us, dates, memories, and so much..please don't change", "One Day in the future, we'll have this and many photos to keep forever!!!!"
+        ];
+
+        function unlockVault() {
+            const pass = document.getElementById("vault-pass").value;
+            if (pass === "25") {
+                document.getElementById("vault-lock-screen").style.display = "none";
+                document.getElementById("vault-gallery").style.display = "block";
+                updateSlide();
+            } else {
+                alert("Incorrect day! ❤️");
+            }
+        }
+
+        function updateSlide() {
+            const imgElement = document.getElementById("current-slide-img");
+            const captionElement = document.getElementById("current-caption");
+            const counterElement = document.getElementById("slide-number");
+            const nextBtn = document.getElementById("next-btn");
+
+            // Fade effect
+            imgElement.style.opacity = 0;
+            
+            setTimeout(() => {
+                imgElement.src = `https://drive.google.com/thumbnail?sz=w1000&id=${driveIDs[currentIdx]}`;
+                captionElement.innerText = captions[currentIdx] || "I Love You";
+                counterElement.innerText = `${currentIdx + 1} / ${driveIDs.length}`;
+                imgElement.style.opacity = 1;
+            }, 300);
+
+            // Change "Next" to "Finish" on the last slide
+            if (currentIdx === driveIDs.length - 1) {
+                nextBtn.innerText = "Finish 🏁";
+            } else {
+                nextBtn.innerText = "Next ❯";
+            }
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentIdx === driveIDs.length - 1) {
+                // She clicked 'Finish' on the last photo
+                document.querySelector(".slideshow-container").style.display = "none";
+                document.getElementById("final-letter-box").style.display = "block";
+            } else {
+                // Normal navigation
+                currentIdx += direction;
+                if (currentIdx < 0) currentIdx = 0;
+                if (currentIdx >= driveIDs.length) currentIdx = driveIDs.length - 1;
+                updateSlide();
+            }
+        }
+
+        function restartGallery() {
+            currentIdx = 0;
+            document.querySelector(".slideshow-container").style.display = "block";
+            document.getElementById("final-letter-box").style.display = "none";
+            updateSlide();
+        }
+
+        function checkAllSwiped() {
+            const swipedCount = document.querySelectorAll('.photo-card.swiped').length;
+            const totalCards = document.querySelectorAll('.photo-card').length;
+            if (swipedCount === totalCards) {
+                document.getElementById("final-letter-box").style.display = "block";
+            }
+        }
+
+        function celebrateFinale() {
+            alert("8 Years. 2,922 Days. Happy Valentine's Day! ❤️");
+            closeValentineDay();
+        }
+
+        /*end of day 8*/
+
+
         window.onclick = function(event) {
             if (event.target.className === 'modal') event.target.style.display = "none";
         }
